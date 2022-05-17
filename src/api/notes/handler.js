@@ -13,13 +13,15 @@
 /**
  * A class that can return
  */
-class NoteHandler {
+class NotesHandler {
   constructor(service) {
     this._service = service;
   }
+
   postNoteHandler(request, h) {
     try {
       const { title = `untitled`, body, tags } = request.payload;
+
       const noteId = this._service.addNote({ title, body, tags });
 
       const response = h.response({
@@ -71,7 +73,9 @@ class NoteHandler {
   putNoteByIdHandler() {
     try {
       const { id } = request.params;
+
       this._service.editNoteById(id, request.payload);
+
       return {
         status: `success`,
         message: `Catatan berhasil diperbarui`,
@@ -104,4 +108,4 @@ class NoteHandler {
   }
 }
 
-module.exports = NoteHandler;
+module.exports = NotesHandler;
